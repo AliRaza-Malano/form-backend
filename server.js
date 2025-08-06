@@ -7,9 +7,12 @@ const studentsRoutes = require("./routes/studentsRoutes");
 
 const app = express(); 
 
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:5173";
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173", // your local dev URL
-  credentials: true, // only if using cookies or auth headers
+  origin: allowedOrigin,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
 }));
 
 app.use(express.json({ limit: "10mb" }));      // Increase limit for JSON
