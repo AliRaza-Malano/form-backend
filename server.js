@@ -5,8 +5,13 @@ require('dotenv').config();
 const studentsRoutes = require("./routes/studentsRoutes");
 
 
-const app = express();              
-app.use(cors());          
+const app = express(); 
+
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "http://localhost:5173", // your local dev URL
+  credentials: true, // only if using cookies or auth headers
+}));
+
 app.use(express.json({ limit: "10mb" }));      // Increase limit for JSON
 app.use(express.urlencoded({ extended: true, limit: "10mb" })); // Also handle URL-encoded data
 app.use("/api/students", studentsRoutes);   
